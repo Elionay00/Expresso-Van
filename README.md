@@ -1,50 +1,52 @@
-# Welcome to your Expo app 👋
+# 🚐 Expresso Vân
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+![Expresso Vân](https://img.shields.io/badge/React_Native-Expo-61DAFB?style=for-the-badge&logo=react)
+![Firebase](https://img.shields.io/badge/Firebase-Auth%20%26%20Firestore-FFCA28?style=for-the-badge&logo=firebase)
+![TypeScript](https://img.shields.io/badge/TypeScript-Full%20Support-3178C6?style=for-the-badge&logo=typescript)
 
-## Get started
+Aplicativo mobile completo para transporte de vans, desenvolvido com React Native, Expo e Firebase.
 
-1. Install dependencies
+## 📱 Funcionalidades
 
-   ```bash
-   npm install
-   ```
+### ✅ Implementadas
+- **🔐 Autenticação completa** com Firebase Auth
+- **🚐 Sistema de reservas** em tempo real
+- **🗺️ Mapas interativos** com localização em tempo real
+- **📋 Histórico de reservas** com cancelamento
+- **👤 Perfil do usuário** completo
+- **💾 Persistência de login** entre sessões
 
-2. Start the app
+### 🛠️ Tecnologias
+- **Frontend:** React Native, Expo, TypeScript
+- **Backend:** Firebase Auth, Firestore
+- **Mapas:** React Native Maps, Expo Location
+- **Navegação:** Expo Router
+- **UI:** React Native Components + StyleSheet
 
-   ```bash
-   npx expo start
-   ```
+## 🎯 Screenshots
 
-In the output, you'll find options to open the app in a
+| Tela de Login | Reservas | Mapa | Perfil |
+|---------------|----------|------|--------|
+| ![Login]() | ![Reservas]() | ![Mapa]() | ![Perfil]() |
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+## 🚀 Como Executar
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+### Pré-requisitos
+- Node.js 16+
+- Expo CLI
+- Conta Firebase
 
-## Get a fresh project
-
-When you're ready, run:
-
+### Instalação
 ```bash
-npm run reset-project
-```
+# Clonar repositório
+git clone https://github.com/seu-usuario/expresso-van.git
+cd expresso-van
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+# Instalar dependências
+npm install
 
-## Learn more
+# Configurar Firebase
+# Editar services/firebase.ts com suas credenciais
 
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+# Executar
+npm start
