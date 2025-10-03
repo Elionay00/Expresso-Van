@@ -289,6 +289,15 @@ export default function PerfilScreen() {
         </TouchableOpacity>
 
         <TouchableOpacity 
+  style={styles.menuItem}
+  onPress={() => router.push('/(tabs)/chats')}
+>
+  <Text style={styles.menuIcon}>💬</Text>
+  <Text style={styles.menuText}>Conversas</Text>
+  <Text style={styles.menuArrow}>›</Text>
+</TouchableOpacity>
+
+        <TouchableOpacity 
           style={styles.menuItem}
           onPress={handleAvaliacoesPress}
           disabled={actionLoading}

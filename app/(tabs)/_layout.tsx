@@ -5,16 +5,18 @@ import { auth } from '@/services/firebase';
 import { Redirect } from 'expo-router';
 import { useEffect, useState } from 'react';
 import { View, Text, ActivityIndicator, StyleSheet } from 'react-native';
+import { initializeNotifications } from '@/services/notifications';
 
 export default function TabLayout() {
   const [user, setUser] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [initialCheck, setInitialCheck] = useState(false);
+  const [notificationsInitialized, setNotificationsInitialized] = useState(false);
 
   useEffect(() => {
     console.log('🔐 Verificando autenticação...');
     
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
       console.log('📱 Estado do auth:', user ? `Logado: ${user.email}` : 'Não logado');
       
       setUser(user);
@@ -22,6 +24,22 @@ export default function TabLayout() {
       // Marcar que a verificação inicial foi completada
       if (!initialCheck) {
         setInitialCheck(true);
+      }
+      
+      // Inicializar notificações se o usuário estiver logado
+      if (user && !notificationsInitialized) {
+        console.log('🔔 Inicializando notificações...');
+        try {
+          const success = await initializeNotifications();
+          if (success) {
+            console.log('✅ Notificações inicializadas com sucesso');
+            setNotificationsInitialized(true);
+          } else {
+            console.log('⚠️ Notificações não puderam ser inicializadas');
+          }
+        } catch (error) {
+          console.error('❌ Erro ao inicializar notificações:', error);
+        }
       }
       
       // Dar um tempo extra para o Firebase restaurar a sessão
@@ -33,7 +51,7 @@ export default function TabLayout() {
     });
 
     return unsubscribe;
-  }, [initialCheck]);
+  }, [initialCheck, notificationsInitialized]);
 
   // Loading screen mais informativa
   if (loading) {
@@ -41,7 +59,9 @@ export default function TabLayout() {
       <View style={styles.loadingContainer}>
         <ActivityIndicator size="large" color="#3498db" />
         <Text style={styles.loadingText}>Carregando seu app...</Text>
-        <Text style={styles.loadingSubtext}>Verificando autenticação</Text>
+        <Text style={styles.loadingSubtext}>
+          {user ? 'Configurando notificações...' : 'Verificando autenticação...'}
+        </Text>
       </View>
     );
   }
@@ -56,42 +76,94 @@ export default function TabLayout() {
   console.log('✅ Renderizando tabs para usuário:', user?.email || 'em verificação');
   
   return (
-    <Tabs screenOptions={{ tabBarActiveTintColor: '#3498db' }}>
+    <Tabs screenOptions={{ 
+      tabBarActiveTintColor: '#3498db',
+      tabBarInactiveTintColor: '#95a5a6',
+      tabBarStyle: {
+        backgroundColor: 'white',
+        borderTopWidth: 1,
+        borderTopColor: '#ecf0f1',
+        height: 60,
+        paddingBottom: 8,
+        paddingTop: 8,
+      },
+      tabBarLabelStyle: {
+        fontSize: 12,
+        fontWeight: '500',
+      }
+    }}>
       <Tabs.Screen
         name="index"
         options={{
           title: 'Início',
-          tabBarIcon: ({ color }) => <FontAwesome size={24} name="home" color={color} />,
+          tabBarIcon: ({ color, focused }) => (
+            <FontAwesome 
+              size={focused ? 26 : 24} 
+              name="home" 
+              color={color} 
+            />
+          ),
         }}
       />
       <Tabs.Screen
         name="reservas"
         options={{
           title: 'Reservas',
-          tabBarIcon: ({ color }) => <FontAwesome size={24} name="ticket" color={color} />,
+          tabBarIcon: ({ color, focused }) => (
+            <FontAwesome 
+              size={focused ? 26 : 24} 
+              name="ticket" 
+              color={color} 
+            />
+          ),
         }}
       />
       <Tabs.Screen
         name="historico"
         options={{
           title: 'Histórico',
-          tabBarIcon: ({ color }) => <FontAwesome size={24} name="history" color={color} />,
+          tabBarIcon: ({ color, focused }) => (
+            <FontAwesome 
+              size={focused ? 26 : 24} 
+              name="history" 
+              color={color} 
+            />
+          ),
         }}
       />
       <Tabs.Screen
         name="map"
         options={{
           title: 'Mapa',
-          tabBarIcon: ({ color }) => <FontAwesome size={24} name="map" color={color} />,
+          tabBarIcon: ({ color, focused }) => (
+            <FontAwesome 
+              size={focused ? 26 : 24} 
+              name="map" 
+              color={color} 
+            />
+          ),
         }}
       />
       <Tabs.Screen
         name="perfil"
         options={{
           title: 'Perfil',
-          tabBarIcon: ({ color }) => <FontAwesome size={24} name="user" color={color} />,
+          tabBarIcon: ({ color, focused }) => (
+            <FontAwesome 
+              size={focused ? 26 : 24} 
+              name="user" 
+              color={color} 
+            />
+          ),
         }}
       />
+      <Tabs.Screen
+  name="chats"
+  options={{
+    title: 'Chat',
+    tabBarIcon: ({ color }) => <FontAwesome size={24} name="comments" color={color} />,
+  }}
+/>
     </Tabs>
   );
 }
