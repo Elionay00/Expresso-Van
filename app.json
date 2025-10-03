@@ -8,9 +8,15 @@
     "scheme": "expressovan",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
+    
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "infoPlist": {
+        "NSLocationWhenInUseUsageDescription": "Este app precisa acessar sua localização para mostrar rotas e acompanhar a van em tempo real.",
+        "NSLocationAlwaysUsageDescription": "Este app precisa acessar sua localização em segundo plano para notificações sobre a chegada da van."
+      }
     },
+    
     "android": {
       "adaptiveIcon": {
         "backgroundColor": "#E6F4FE",
@@ -19,14 +25,27 @@
         "monochromeImage": "./assets/images/android-icon-monochrome.png"
       },
       "edgeToEdgeEnabled": true,
-      "predictiveBackGestureEnabled": false
+      "predictiveBackGestureEnabled": false,
+      "permissions": [
+        "ACCESS_COARSE_LOCATION",
+        "ACCESS_FINE_LOCATION",
+        "ACCESS_BACKGROUND_LOCATION"
+      ]
     },
+    
     "web": {
       "output": "static",
       "favicon": "./assets/images/favicon.png"
     },
+    
     "plugins": [
       "expo-router",
+      [
+        "expo-location",
+        {
+          "locationAlwaysAndWhenInUsePermission": "Permitir que o ExpressoVan acesse sua localização para mostrar rotas e acompanhar a van em tempo real."
+        }
+      ],
       [
         "expo-splash-screen",
         {
@@ -40,6 +59,7 @@
         }
       ]
     ],
+    
     "experiments": {
       "typedRoutes": true,
       "reactCompiler": true
